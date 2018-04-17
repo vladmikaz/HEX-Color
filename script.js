@@ -1,10 +1,11 @@
+"use strict";
 document.addEventListener('DOMContentLoaded', function(){
 	const HexInput = document.getElementById("HexInput");
 	const AllCards = document.getElementById("AllCards");
 	// localStorage.clear();
 	for (var i = 0; i < localStorage.length; i++) { 
-		key = localStorage.key(i);
-		favorites = localStorage.getItem(key);
+		var key = localStorage.key(i);
+		var favorites = localStorage.getItem(key);
 		add_html(key,favorites,localStorage.length-i);
 		// console.log(key + " = " + favorites);
 	}
@@ -13,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
 function add_click(){
 	try {
-		src = HexInput.value;
+		var src = HexInput.value;
 		if((!/\W/g.test(src))&&(src.length==3 || src.length==6)){
 			src="#"+src;
 			if(localStorage.getItem(src)==null)
@@ -36,7 +37,7 @@ function add_click(){
 }
 
 function add_html(key,favorites,i){
-	html ="";
+	var html ="";
 	html+='<div id="'+key+'" class="cards__item cards__item_animate ';
 	if(favorites){
 		html+='cards__item_favorites';
