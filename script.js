@@ -1,7 +1,7 @@
 "use strict";
+var HEX_INPUT = document.getElementById("HexInput");
+var ALL_CARDS = document.getElementById("AllCards");
 document.addEventListener('DOMContentLoaded', function(){
-	const HexInput = document.getElementById("HexInput");
-	const AllCards = document.getElementById("AllCards");
 	// localStorage.clear();
 	for (var i = 0; i < localStorage.length; i++) { 
 		var key = localStorage.key(i);
@@ -14,15 +14,15 @@ document.addEventListener('DOMContentLoaded', function(){
 
 function add_click(){
 	try {
-		var src = HexInput.value;
-		if((!/\W/g.test(src))&&(src.length==3 || src.length==6)){
-			src="#"+src;
-			if(localStorage.getItem(src)==null)
+		var key = HEX_INPUT.value;
+		if((!/\W/g.test(key))&&(key.length==3 || key.length==6)){
+			key="#"+key;
+			if(localStorage.getItem(key)==null)
 			{
 				var favorites = "";
-				localStorage.setItem(src, favorites);
-				add_html(src, favorites,0.5);
-				HexInput.value="";
+				localStorage.setItem(key, favorites);
+				add_html(key, favorites,0.5);
+				HEX_INPUT.value="";
 			}
 			else
 				alert("Цвет уже добавлен");
@@ -45,7 +45,7 @@ function add_html(key,favorites,i){
 	html+='"><div style="background:'+key+';" class="cards__item__color"></div>'+key+
 	'<span onclick="star_click(this)" class="cards__item__star"></span>\
 	<span onclick="del_click(this)" class="cards__item__rubbish"></span></div>';
-	AllCards.insertAdjacentHTML('afterBegin',html);
+	ALL_CARDS.insertAdjacentHTML('afterBegin',html);
 	setTimeout(function() {document.getElementById(key).classList.remove('cards__item_animate');}, 500*i);
 }
 
@@ -58,6 +58,6 @@ function del_click(el){
 	if(confirm("Вы точно хотите удалить "+el.parentNode.id+"?")){
 		localStorage.removeItem(el.parentNode.id);
 		el.parentNode.classList.add('cards__item_animate','cards__item_delete');
-		setTimeout(function() {AllCards.removeChild(el.parentNode);}, 1000);
+		setTimeout(function() {ALL_CARDS.removeChild(el.parentNode);}, 1000);
 	}
 }
